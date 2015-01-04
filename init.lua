@@ -176,7 +176,7 @@ minetest.register_decoration({
 	fill_ratio = 0.047,
 	flags = "place_center_x, place_center_z",
 	biomes = {"mountain"},
-	schematic = minetest.get_modpath("simplev7").."/schematics/snowtreeongen.mts",
+	schematic = minetest.get_modpath("simplev7").."/schematics/snowtree.mts",
 })
 
 minetest.register_decoration({
@@ -206,18 +206,4 @@ minetest.register_decoration({
 	schematic = minetest.get_modpath("simplev7").."/schematics/papyrus.mts",
 })
 
-minetest.register_abm({
-	nodenames = "default:sapling",
-	interval = 40,
-	chance = 20,
-	action = function(pos, node)
-		if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name ~= "default:snowblock" then
-			return
-		end
-		minetest.remove_node(pos)
-		pos.x = pos.x-3
-		pos.z = pos.z-3
-		minetest.place_schematic(pos, minetest.get_modpath("simplev7").."/schematics/snowtree.mts", 0, {}, false)
-	end,
-})
 
