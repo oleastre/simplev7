@@ -199,6 +199,15 @@ minetest.register_decoration({
 
 minetest.register_decoration({
 	deco_type = "schematic",
+	place_on = "default:desert_sand",
+	sidelen = 64,
+	noise_params = {offset = -0.005, scale = 0.03, spread = {x = 320, y = 320, z = 320}, seed = 230, octaves = 3, persist = 0.6},
+	biomes = {"desert"},
+	schematic = minetest.get_modpath("simplev7").."/schematics/cactus.mts",
+})
+
+minetest.register_decoration({
+	deco_type = "schematic",
 	place_on = "default:dirt_with_grass",
 	sidelen = 16,
 	fill_ratio = 0.17,
