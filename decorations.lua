@@ -212,6 +212,7 @@ minetest.register_decoration({
 })
 
 -- Saplings
+
 simplev7.sapling = {}
 simplev7.sapling.jungle = minetest.register_decoration({
   deco_type = "simple",
@@ -222,4 +223,23 @@ simplev7.sapling.jungle = minetest.register_decoration({
   decoration = {"default:junglesapling"}
 })
 
+simplev7.sapling.forest = minetest.register_decoration({
+  deco_type = "simple",
+  place_on = "default:dirt_with_grass",
+  sidelen = 16,
+  fill_ratio = 0.037,
+  biomes = {"forest"},
+  decoration = {"default:sapling"} 
+})
+
+simplev7.sapling.meadow = minetest.register_decoration({
+  deco_type = "simple",
+  place_on = {"default:dirt_with_grass", "default:dirt"},
+  sidelen = 80,
+  fill_ratio = 0.003,
+  biomes = {"meadow"},
+  decoration = {"default:sapling"} 
+})
+
+minetest.set_gen_notify("decoration", simplev7.sapling)
 

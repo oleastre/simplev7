@@ -125,8 +125,32 @@ minetest.register_biome({
 })
 
 
+function simplev7.on_generated(minp, maxp, seed)
+  local gentable = minetest.get_mapgen_object("gennotify")
+  local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
+  
+  local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
+  local data = vm:get_data()
+  
+  local function generate_trees(id, generator)
+    local decorationId = "decoration#" .. id
+    if(gentable[decorationId]) then
+      for _, pos in ipairs(gentable[decorationId]) do
+        generator(data, area, {x=pos.x, y=pos.y+1, z=pos.z})
+      end
+    end
+  end
 
+  generate_trees(simplev7.sapling.forest, simplev7.grow_tree)
+  generate_trees(simplev7.sapling.meadow, simplev7.grow_tree)
+  generate_trees(simplev7.sapling.jungle, simplev7.grow_jungle_tree)
 
+  vm:set_data(data)
+  vm:write_to_map()
+  vm:update_map()
+end
+
+minetest.register_on_generated(simplev7.on_generated)
 --minetest.register_decoration({
 --  deco_type = "schematic",
 --  place_on = "default:dirt_with_grass",
