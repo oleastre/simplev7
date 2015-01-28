@@ -218,7 +218,7 @@ simplev7.sapling.jungle = minetest.register_decoration({
   deco_type = "simple",
   place_on = "default:dirt_with_grass",
   sidelen = 16,
-  fill_ratio = 0.057,
+  fill_ratio = 0.017,
   biomes = {"jungle"},
   decoration = {"default:junglesapling"}
 })
@@ -227,7 +227,7 @@ simplev7.sapling.forest = minetest.register_decoration({
   deco_type = "simple",
   place_on = "default:dirt_with_grass",
   sidelen = 16,
-  fill_ratio = 0.037,
+  fill_ratio = 0.012,
   biomes = {"forest"},
   decoration = {"default:sapling"} 
 })
@@ -236,7 +236,7 @@ simplev7.sapling.meadow = minetest.register_decoration({
   deco_type = "simple",
   place_on = {"default:dirt_with_grass", "default:dirt"},
   sidelen = 80,
-  fill_ratio = 0.003,
+  fill_ratio = 0.001,
   biomes = {"meadow"},
   decoration = {"default:sapling"} 
 })
