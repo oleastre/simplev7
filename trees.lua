@@ -63,17 +63,34 @@ local function add_trunk_and_leaves(data, a, pos, tree_cid, leaves_cid,
   end
 end
 
+function simplev7.remove_saplings(data, area, minp, maxp, c_air, c_sapling)
+  -- Remove saplings in the area
+  for i in area:iterp(minp, maxp) do
+    if(data[i]==c_sapling) then
+      data[i] = c_air
+    end
+  end
+end
+
 -- Appletree
 
 function simplev7.grow_tree(data, area, pos)
   local x, y, z = pos.x, pos.y, pos.z
   local height = random(4, 5)
   local c_air = minetest.get_content_id("air")
+  local c_sapling = minetest.get_content_id("default:sapling")
+  
+  if(data[area:indexp(pos)]~=c_sapling) then
+    return -- Sapling already removed
+  end
+  
   data[area:indexp(pos)] = c_air -- Remove sapling
-  if not (area:contains(x - 2, y,              z - 2) and 
-          area:contains(x + 2, y + height + 1, z + 2)) then
+  local minp = { x = x - 2, y = y, z = z - 2 }
+  local maxp = { x = x + 2, y = y + height + 1, z = z + 2 }
+  if not (area:containsp(minp) and area:containsp(maxp)) then
     return
   end
+  simplev7.remove_saplings(data, area, minp, maxp, c_air, c_sapling)
 
   local c_tree = minetest.get_content_id("default:tree")
   local c_leaves = minetest.get_content_id("default:leaves")
@@ -88,11 +105,21 @@ function simplev7.grow_jungle_tree(data, area , pos)
   local x, y, z = pos.x, pos.y, pos.z
   local height = random(8, 12)
   local c_air = minetest.get_content_id("air")
+
+  local c_sapling = minetest.get_content_id("default:junglesapling")
+  
+  if(data[area:indexp(pos)]~=c_sapling) then
+    return -- Sapling already removed
+  end
+
   data[area:indexp(pos)] = c_air -- Remove sapling
-  if not (area:contains(x - 3, y - 1,          z - 3) and 
-          area:contains(x + 3, y + height + 1, z + 3)) then
+  local minp = { x = x - 3, y = y - 1, z = z - 3 }
+  local maxp = { x = x + 3, y = y + height + 1, z = z + 3}
+  if not (area:containsp(minp) and area:containsp(maxp)) then
     return
   end
+
+  simplev7.remove_saplings(data, area, minp, maxp, c_air, c_sapling)
 
   local c_ignore = minetest.get_content_id("ignore")
   local c_jungletree = minetest.get_content_id("default:jungletree")
